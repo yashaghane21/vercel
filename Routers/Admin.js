@@ -9,7 +9,6 @@ const teachmodel = require("../Models/Teacher")
 const usermodel = require("../Models/User")
 const ecfmodel = require("../Models/Ecquestions")
 const ecfemodel = require("../Models/ECfback")
-const bcrypt = require("bcrypt")
 const validator = require("validator")
 // const fmodel = require("../Models/Feedback")
 
@@ -491,9 +490,9 @@ router.post("/addhod", async (req, res) => {
                 message: "user already exist"
             })
         }
-        const hashedpass = await bcrypt.hash(password, 10);
+
         const hod = new usermodel({
-            name, email, phone, department, role: 1, password: hashedpass
+            name, email, phone, department, role: 1, password: password
         });
         await hod.save();
         return res.status(201).send({ success: true, hod });

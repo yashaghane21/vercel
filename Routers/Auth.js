@@ -5,7 +5,6 @@ const JWT_SECRET = "yadgshdgjfrurfg"
 const validator = require("validator")
 const deptmodel = require("../Models/Department")
 const semmodel = require("../Models/Sem")
-const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv");
 const nodemailer = require("nodemailer");
@@ -51,8 +50,8 @@ router.post("/register", async (req, res) => {                                //
         })
     }
 
-    const hashedpass = await bcrypt.hash(password, 10)
-    const user = new usermodel({ name, email, Enroll, password: hashedpass, phone, department, sem });
+
+    const user = new usermodel({ name, email, Enroll, password, phone, department, sem });
     const userd = await user.save();
     const subject = "About"
     const text = "welocome to feedbacker"
@@ -102,14 +101,14 @@ router.post("/login", async (req, res) => {               // http://localhost:50
                 message: "email is not registerd",
             });
         }
-        //password
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(401).send({
+        if (password !== user.password) {
+            return res.status(200).send({
                 success: false,
-                message: "Invlid email  or password",
+                message: "password is wrong",
             });
         }
+
+
         const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
             expiresIn: "7d"
         });

@@ -11,7 +11,7 @@ app.use(cors());
 
 app.use(cors({
   // origin: 'http://localhost:5173',
-  origin: 'https://gpmfeedback.netlify.app',
+  origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true
 }));
@@ -28,7 +28,7 @@ app.use("/api/v3", student)
 
 
 
-const mongoUrl = process.env.MONGODB_URL;
+const mongoUrl = process.env.MONGODB_URL
 console.log(process.env.MONGODB_URL)
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })

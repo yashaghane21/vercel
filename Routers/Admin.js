@@ -10,6 +10,7 @@ const usermodel = require("../Models/User")
 const ecfmodel = require("../Models/Ecquestions")
 const ecfemodel = require("../Models/ECfback")
 const validator = require("validator")
+const shiftmodel = require("../Models/Shift")
 // const fmodel = require("../Models/Feedback")
 
 router.post("/department", async (req, res) => {
@@ -910,4 +911,15 @@ router.post("/depsyear", async (req, res) => {   //for encourse
         });
     }
 });
+
+router.post("/shift", async (req, res) => {
+    const { name } = req.body
+    const shift = new shiftmodel({ name });
+    await shift.save();
+    return res.status(200).send({
+        success: true,
+        shift
+    });
+
+})
 module.exports = router;

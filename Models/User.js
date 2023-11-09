@@ -35,6 +35,10 @@ const userschema = new mongoose.Schema({
         default: "male"
     }, dob: {
         type: Date
+    },
+    shift: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "shift"
     }
 });
 

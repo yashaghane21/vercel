@@ -29,7 +29,6 @@ app.use("/api/v3", student)
 
 
 const mongoUrl = process.env.MONGODB_URL
-console.log(process.env.MONGODB_URL)
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {

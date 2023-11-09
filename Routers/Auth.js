@@ -8,6 +8,7 @@ const semmodel = require("../Models/Sem")
 const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv");
 const nodemailer = require("nodemailer");
+const shiftmodel = require("../Models/Shift")
 dotenv.config();
 
 let transporter = nodemailer.createTransport({
@@ -21,7 +22,7 @@ let transporter = nodemailer.createTransport({
 });
 
 router.post("/register", async (req, res) => {                                // http://localhost:5000/api/v3/register
-    const { name, email, Enroll, password, phone, department, sem } = req.body
+    const { name, email, Enroll, password, phone, department, sem, shift } = req.body
 
     if (!validator.isEmail(email) || !validator.isLength(email, { min: 3, max: 320 })) {
         return res.status(400).send({
@@ -51,7 +52,7 @@ router.post("/register", async (req, res) => {                                //
     }
 
 
-    const user = new usermodel({ name, email, Enroll, password, phone, department, sem });
+    const user = new usermodel({ name, email, Enroll, password, phone, department, sem, shift });
     const userd = await user.save();
     const subject = "About"
     const text = "welocome to feedbacker"
@@ -161,7 +162,14 @@ router.post("/getsembydep", async (req, res) => {
 });
 
 
-
+router.get("/shifts", async (req, res) => {
+    const shifts = await shiftmodel.find({})
+    return res.status(200).send({
+        success: true,
+        message: "done",
+        shifts
+    });
+})
 
 
 

@@ -63,7 +63,7 @@ router.post("/subjects", async (req, res) => {
 
 
 router.post('/feedback', async (req, res) => {
-    const { feedback, department, sem, course, student } = req.body;
+    const { feedback, department, sem, course, student,shift } = req.body;
 
     const cf = await fmodel.findOne({ course, sem, student });
 
@@ -72,7 +72,7 @@ router.post('/feedback', async (req, res) => {
     }
 
     try {
-        const newFeedback = new fmodel({ department, sem, course, student, feedback });
+        const newFeedback = new fmodel({ department, sem, course, student, feedback,shift });
 
         await newFeedback.save();
 

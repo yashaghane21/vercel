@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const feedbackschema = new mongoose.Schema({
-     department: {
+    department: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Department"
     }, sem: {
@@ -31,8 +31,13 @@ const feedbackschema = new mongoose.Schema({
     timestamp: { type: Date, default: Date.now },
     year: {
         type: Number,
-        default: new Date().getFullYear() 
-      },
+        default: new Date().getFullYear()
+    },
+    shift: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "shift"
+    }
+
 });
 
 const feedback = mongoose.model("feedback", feedbackschema);
